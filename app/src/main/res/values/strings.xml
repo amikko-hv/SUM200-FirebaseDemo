@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SUM200-FirebaseDemo</string>
+    <string name="title_activity_create_movie">CreateMovieActivity</string>
+</resources>
