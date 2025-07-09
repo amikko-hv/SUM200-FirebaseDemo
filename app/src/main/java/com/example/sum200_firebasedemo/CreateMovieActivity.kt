@@ -20,11 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.lifecycleScope
 import com.example.sum200_firebasedemo.ui.theme.SUM200FirebaseDemoTheme
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class CreateMovieActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,29 +40,13 @@ class CreateMovieActivity : ComponentActivity() {
         }
     }
 
-    /**
-     * Save a movie to the database
-     */
     private fun save(movie: Movie) {
-        // Launch a coroutine
-        lifecycleScope.launch {
-            // Write to database on the background thread
-            AppDatabase.getDatabase(application)
-                .movieDao()
-                .insertAll(movie)
-
-            // Switch back to main thread to display a toast on the UI
-            withContext(Dispatchers.Main) {
-                Toast.makeText(
-                    this@CreateMovieActivity,
-                    "${movie.title} saved!",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                // Finish movie creation and resume the main activity
-                finish()
-            }
-        }
+        Toast.makeText(
+            this@CreateMovieActivity,
+            "${movie.title} saved!",
+            Toast.LENGTH_SHORT
+        ).show()
+        finish()
     }
 }
 

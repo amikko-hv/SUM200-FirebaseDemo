@@ -17,7 +17,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,9 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.lifecycleScope
 import com.example.sum200_firebasedemo.ui.theme.SUM200FirebaseDemoTheme
-import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     private var updateMovies = {}
@@ -38,18 +35,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             var movies: List<Movie>? by remember { mutableStateOf(null) }
-
-            // Create a lambda to update movies via a coroutine
-            updateMovies = {
-                lifecycleScope.launch {
-                    movies = getMovies()
-                }
-            }
-
-            // Get movies from the database when the composable UI is first displayed
-            LaunchedEffect(Unit) {
-                movies = getMovies()
-            }
 
             SUM200FirebaseDemoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -80,15 +65,6 @@ class MainActivity : ComponentActivity() {
         val intent = Intent(this, CreateMovieActivity::class.java)
         startActivity(intent)
     }
-
-    /**
-     * Get all movies from the database
-     */
-    private suspend fun getMovies(): List<Movie> {
-        return AppDatabase.getDatabase(application)
-            .movieDao()
-            .getAll()
-    }
 }
 
 @Composable
@@ -100,7 +76,7 @@ fun MainUI(
     Column(
         modifier = Modifier.padding(innerPadding)
     ) {
-        Text("Local movie database")
+        Text("Firebase Demo")
 
         // Button to navigate to CreateMovieActivity
         Button(onClick = onCreateClick) {

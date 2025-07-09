@@ -2,9 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
-    // Enable KSP
-    id("com.google.devtools.ksp")
 }
 
 android {
@@ -59,14 +56,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    // Use Coroutines in the Android project
-    implementation(libs.kotlinx.coroutines.android)
-
-    // Use Room with Kotlin symbol processing
-    implementation(libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
-
-    // Kotlin extensions and Coroutine support for Room
-    implementation(libs.androidx.room.ktx)
 }
