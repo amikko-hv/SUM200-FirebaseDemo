@@ -21,6 +21,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.sum200_firebasedemo.ui.theme.SUM200FirebaseDemoTheme
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 class CreateMovieActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,12 +43,17 @@ class CreateMovieActivity : ComponentActivity() {
     }
 
     private fun save(movie: Movie) {
-        Toast.makeText(
-            this@CreateMovieActivity,
-            "${movie.title} saved!",
-            Toast.LENGTH_SHORT
-        ).show()
-        finish()
+        Firebase.firestore
+            .collection("movies")
+            .add(movie)
+            .addOnSuccessListener {
+                Toast.makeText(
+                    this@CreateMovieActivity,
+                    "${movie.title} saved!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                finish()
+            }
     }
 }
 

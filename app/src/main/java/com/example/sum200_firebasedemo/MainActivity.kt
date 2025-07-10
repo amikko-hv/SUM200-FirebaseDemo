@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                     }
             }
 
-            updateMovies();
+            updateMovies()
 
             SUM200FirebaseDemoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
