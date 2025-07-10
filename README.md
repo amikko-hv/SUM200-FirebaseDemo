@@ -2,6 +2,9 @@
 
 Demonstration of using Firebase in an Android application.
 
+The app reads and writes to a Firestore database. To run the code, you will need to connect
+the Android project to your own Firebase project. See links below.
+
 ## Links
 
 - [Firebase](https://firebase.google.com/)
