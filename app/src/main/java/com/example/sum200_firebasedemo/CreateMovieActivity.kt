@@ -42,6 +42,9 @@ class CreateMovieActivity : ComponentActivity() {
         }
     }
 
+    /**
+     * Save a movie to the Firestore database. The movie is added as a new document.
+     */
     private fun save(movie: Movie) {
         Firebase.firestore
             .collection("movies")

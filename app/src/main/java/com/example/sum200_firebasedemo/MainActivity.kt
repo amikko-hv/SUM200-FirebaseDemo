@@ -39,17 +39,20 @@ class MainActivity : ComponentActivity() {
         setContent {
             var movies: List<Movie>? by remember { mutableStateOf(null) }
 
+            // updateMovie lambda to get all movies the from Firestore database
             updateMovies = {
                 Firebase.firestore
                     .collection("movies")
                     .get()
                     .addOnSuccessListener { result ->
+                        // Convert result into a list of movies.
                         movies = result.map { document ->
                             document.toObject<Movie>()
                         }
                     }
             }
 
+            // Invoke updateMovie to fetch movies when the activity starts
             updateMovies()
 
             SUM200FirebaseDemoTheme {
