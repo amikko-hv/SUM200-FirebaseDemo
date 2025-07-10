@@ -2,6 +2,7 @@ package com.example.sum200_firebasedemo
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -25,6 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.sum200_firebasedemo.ui.theme.SUM200FirebaseDemoTheme
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 class MainActivity : ComponentActivity() {
     private var updateMovies = {}
@@ -35,6 +38,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             var movies: List<Movie>? by remember { mutableStateOf(null) }
+
+            Firebase.firestore
+                .collection("movies")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        Log.d("firestore", "${document.id} => ${document.data}")
+                    }
+                }
+
 
             SUM200FirebaseDemoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
